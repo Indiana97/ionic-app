@@ -1,0 +1,26 @@
+page-register {
+
+  .back{
+    padding: 0;
+  }
+  .register {
+    margin-top: 30px;
+    .item-block {
+      border: 1px solid green !important;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      .item-inner {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .submit {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    font-size: 20px;
+    height: 40px;
+  }
+
+}

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create Event</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="save()">Save</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <img class="event-img" src="../../assets/imgs/photo-empty.png" alt="">
+
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Title</ion-label>
+      <ion-input type="text" [(ngModel)]="eventData.title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Category</ion-label>
+      <ion-select [(ngModel)]="eventData.category" multiple="true" cancelText="Nah" okText="Okay!">
+        <ion-option *ngFor="let item of categoryList" [value]="item.id">{{item.name}}</ion-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Location</ion-label>
+      <ion-input type="text" [(ngModel)]="eventData.location"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Date Time</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY hh:mm: A" pickerFormat="MMM DD, YYYY hh:mm:A" [(ngModel)]="eventData.date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-textarea rows="6" maxLength="500" [(ngModel)]="eventData.description"></ion-textarea>
+    </ion-item>
+
+  </ion-list>
+
+
+  <div #map id="map"></div>
+</ion-content>

@@ -1,0 +1,57 @@
+page-profile {
+  .profile{
+    width: 100%;
+    margin-top: 30px;
+    img{
+      width: 85px;
+      margin: 0 auto;
+      border: 2px solid green;
+      border-radius: 50%;
+      display: block
+    }
+    button{
+      margin: 0 auto;
+      display: block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      margin-top: -15px;
+      font-size: 10px;
+    }
+    p{
+      width: 100%;
+      text-align: center;
+      margin-top: 5px;
+      font-size: 18px;
+    }
+  }
+
+   .item-block {
+     border: none !important;
+     .item-inner {
+       border: none !important;
+       ion-label {
+         font-size: 14px;
+         padding-right: 3px;
+       }
+       ion-input,
+       ion-select,
+       ion-textarea,
+       ion-datetime {
+         border: 1px solid gray;
+         border-radius: 3px;
+         padding-left: 7px;
+       }
+     }
+   }
+
+
+  .submit {
+    width: 80%;
+    margin: 20px auto;
+    display: block;
+    font-size: 20px;
+    height: 40px;
+  }
+
+}

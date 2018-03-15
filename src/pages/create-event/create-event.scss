@@ -1,0 +1,30 @@
+page-create-event {
+
+    .event-img{
+      width: 80%;
+      display: block;
+      margin: 20px auto;
+      margin-top: 20px;
+    }
+
+
+ .item-block {
+   border: none !important;
+   .item-inner {
+     border: none !important;
+     ion-label {
+       font-size: 14px;
+       padding-right: 3px;
+     }
+     ion-input,
+     ion-select,
+     ion-textarea,
+     ion-datetime {
+       border: 1px solid gray;
+       border-radius: 3px;
+       padding-left: 7px;
+     }
+   }
+ }
+
+}

@@ -1,0 +1,40 @@
+page-login {
+
+  .logo_img{
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    margin-top: 30%;
+  }
+  .title{
+    text-align: center;
+  }
+  .login_bg{
+    .item-block{
+      border: 1px solid green !important;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      .item-inner{
+        border-bottom: none;
+      }
+    }
+  }
+
+  .submit{
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    font-size: 20px;
+    height: 40px;
+  }
+  .register{
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 50%;
+    display: block;
+  }
+
+
+
+}

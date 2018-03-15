@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="save()">Save</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="profile">
+    <img src="../../assets/imgs/4.png" alt="">
+    <button ion-button color="danger" icon-only>
+      <ion-icon name="md-create"></ion-icon>
+    </button>
+    <P>Dzmitry DDB</P>
+
+  </div>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>User Name:</ion-label>
+      <ion-input type="text" [(ngModel)]="proData.userName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>User Email:</ion-label>
+      <ion-input type="text" [(ngModel)]="proData.userEmail" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>User Type:</ion-label>
+      <ion-input type="text" [(ngModel)]="proData.userType" disabled></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-label stacked>Category:</ion-label>
+      <ion-select multiple="true" cancelText="Nah" okText="Okay!" [(ngModel)]="proData.category">
+        <ion-option *ngFor="let item of categoryList" [value]="item.id">{{item.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Phone:</ion-label>
+      <ion-input type="tel" [(ngModel)]="proData.phone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Zip Code:</ion-label>
+      <ion-input type="number" [(ngModel)]="proData.zipCode"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Description:</ion-label>
+      <ion-textarea rows="6" maxLength="500" [(ngModel)]="proData.description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Distance:</ion-label>
+      <ion-input type="number" min="200" max="1000" [(ngModel)]="proData.distance"></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-range min="200" max="2000" [(ngModel)]="proData.distance" color="secondary">
+        <ion-label range-left>200</ion-label>
+        <ion-label range-right>2000</ion-label>
+      </ion-range>
+    </ion-item>
+
+
+  </ion-list>
+
+  <button ion-button icon-left class="submit" (click)="save()">
+    Save
+  </button>
+
+</ion-content>

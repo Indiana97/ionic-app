@@ -1,0 +1,52 @@
+<ion-content padding>
+
+  <button ion-button clear icon-left class="back" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon>
+    Back
+  </button>
+
+  <ion-list class="register">
+
+    <ion-item>
+      <ion-label>User Name</ion-label>
+      <ion-input type="text" [(ngModel)]="resData.userName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email Address</ion-label>
+      <ion-input type="email" [(ngModel)]="resData.email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>User Type</ion-label>
+      <ion-select [(ngModel)]="resData.userType">
+        <ion-option *ngFor="let item of userTypeList" [value]="item.value">{{item.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="resData.password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Comfirm Password</ion-label>
+      <ion-input type="password" [(ngModel)]="comfirmPass"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="resData.phoneNum"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Zip Code</ion-label>
+      <ion-input type="number" [(ngModel)]="resData.zipCode"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button icon-left class="submit" (click)="submit()">
+    Sign Up
+  </button>
+
+</ion-content>

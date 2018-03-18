@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -16,11 +17,25 @@ import { ProfilePage } from '../pages/profile/profile';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = CreateEventPage;
-
+  rootPage: any;
+  userID: string;
   pages: Array<{title: string, icon: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public storage: Storage
+  ) {
+    this.storage.get('userID').then((val) => {
+      this.userID = val;
+      if(this.userID){
+        this.rootPage = HomePage;
+      }else{
+        this.rootPage = LoginPage;
+      }
+    });
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -47,6 +62,9 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    if(page.title == "Log Out"){
+      this.storage.remove('userID');
+    }
     this.nav.setRoot(page.component);
   }
 }

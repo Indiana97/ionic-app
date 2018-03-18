@@ -1,29 +1,48 @@
 page-login {
 
+  .fixed-content{
+    background: $start-bg;  /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(to bottom right, $start-bg, $end-bg); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(to bottom right, $start-bg, $end-bg); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(to bottom right, $start-bg, $end-bg);/* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, $start-bg, $end-bg);  /* Standard syntax (must be last) */
+  }
   .logo_img{
-    width: 60%;
+    width: 40%;
     text-align: center;
     margin: 0 auto;
     display: block;
-    margin-top: 30%;
+    margin-top: 10%;
   }
   .title{
     text-align: center;
   }
   .login_bg{
+    margin-bottom: 10px;
     .item-block{
       border: 1px solid green !important;
       border-radius: 5px;
-      margin-bottom: 20px;
+      margin-top: 20px;
+      background-color: #f9f6f6b0;
       .item-inner{
         border-bottom: none;
       }
     }
   }
 
+  .check-item{
+    padding:0;
+    background: transparent;
+    padding-left: 15px;
+    .item-inner{
+      border-bottom: none !important;
+    }
+
+  }
+
   .submit{
-    width: 80%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 20px auto;
     display: block;
     font-size: 20px;
     height: 40px;
@@ -31,7 +50,7 @@ page-login {
   .register{
     margin: 0 auto;
     margin-top: 20px;
-    width: 50%;
+    width: 90%;
     display: block;
   }
 

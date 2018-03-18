@@ -1,4 +1,16 @@
 page-register {
+  .fixed-content {
+    background: $start-bg;
+    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(to bottom right, $start-bg, $end-bg);
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(to bottom right, $start-bg, $end-bg);
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(to bottom right, $start-bg, $end-bg);
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, $start-bg, $end-bg);
+    /* Standard syntax (must be last) */
+  }
 
   .back{
     padding: 0;
@@ -9,6 +21,7 @@ page-register {
       border: 1px solid green !important;
       border-radius: 5px;
       margin-bottom: 20px;
+      background-color: #f9f6f6b0;
       .item-inner {
         border-bottom: none;
       }

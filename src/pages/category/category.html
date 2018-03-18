@@ -11,14 +11,14 @@
 <ion-content>
   <div class="empty">
     <h3>This page is used to view and edit Categories</h3>
-    <img src="../../assets/icon/coming_soon_icon.jpg" alt="">
+    <img src="assets/icon/coming_soon_icon.jpg" alt="">
   </div>
 
   <ion-list>
-    <ion-item-sliding>
-      <ion-item *ngFor="let item of categoryList">
+    <ion-item-sliding #slidingItem *ngFor="let item of categoryList">
+      <ion-item>
         <ion-avatar item-start>
-          <img src="../../assets/imgs/category.png">
+          <img src="assets/imgs/category.png">
         </ion-avatar>
         <h2>{{item.name}}</h2>
         <p>Ugh. As if.</p>
@@ -27,7 +27,7 @@
         </button>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="danger">
+        <button ion-button color="danger" (click)="delete(slidingItem)">
           <ion-icon name="ios-trash"></ion-icon>
           Delete
         </button>

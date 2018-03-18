@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ItemSliding } from 'ionic-angular';
+
 
 /**
  * Generated class for the CategoryPage page.
@@ -31,6 +33,10 @@ export class CategoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoryPage');
+  }
+
+  delete(slidingItem: ItemSliding) {
+    slidingItem.close();
   }
 
 }

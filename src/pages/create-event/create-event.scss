@@ -1,30 +1,72 @@
 page-create-event {
 
-    .event-img{
+  .event-img{
+    width: 100%;
+    img{
       width: 80%;
       display: block;
       margin: 20px auto;
       margin-top: 20px;
     }
+    label {
+      padding: 10px;
+      width: 40px;
+      display: table;
+      color: #f20707;
+      height: 40px;
+      margin: 0 auto;
+      margin-top: -70px;
+      z-index: 11;
+      position: relative;
+      border: 1px solid green;
+      border-radius: 50%;
+      background-color: #add8e663;
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  }
 
 
- .item-block {
-   border: none !important;
-   .item-inner {
-     border: none !important;
-     ion-label {
-       font-size: 14px;
-       padding-right: 3px;
-     }
-     ion-input,
-     ion-select,
-     ion-textarea,
-     ion-datetime {
-       border: 1px solid gray;
-       border-radius: 3px;
-       padding-left: 7px;
-     }
-   }
- }
+  .item-block {
+    border: none !important;
+    .item-inner {
+      border: none !important;
+      ion-label {
+        font-size: 14px;
+        padding-right: 3px;
+      }
+      ion-input,
+      ion-select,
+      ion-textarea,
+      ion-datetime {
+        border: 1px solid gray;
+        border-radius: 3px;
+        padding-left: 7px;
+      }
+    }
+  }
+
+  .search-box{
+    border: 1px solid gray;
+    width: calc(100% - 24px);
+    margin-left: 16px;
+    border-radius: 5px;
+    height: 38px;
+    background-color: #fff;
+  }
+
+  .submit {
+    width: 80%;
+    margin: 20px auto;
+    display: block;
+    font-size: 20px;
+    height: 40px;
+  }
+
 
 }

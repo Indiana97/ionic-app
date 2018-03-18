@@ -3,28 +3,33 @@
 
 <ion-content padding>
 
-  <img class="logo_img" src="../../assets/icon/cocacola.png" alt="">
+  <img class="logo_img" src="assets/icon/logo.png" alt="">
   <h1 class="title">Login</h1>
 
   <ion-list class="login_bg">
 
     <ion-item>
       <ion-label>User Email</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="userData.userEmail"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
     </ion-item>
 
   </ion-list>
 
-  <button ion-button icon-left class="submit" (click)="submit()">
+  <ion-item class="check-item">
+    <ion-label>Rememeber Me</ion-label>
+    <ion-checkbox [(ngModel)]="isRemember"></ion-checkbox>
+  </ion-item>
+
+  <button ion-button icon-left class="submit" (click)="doLogin()">
     <ion-icon name="md-log-in"></ion-icon>
       Login
   </button>
 
-  <button ion-button clear class="register" (click)="register()"> Register </button>
+  <button ion-button outline class="register" (click)="register()"> Register </button>
 
 </ion-content>

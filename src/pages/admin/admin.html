@@ -27,7 +27,7 @@
 
         <div class="swtchTab" *ngSwitchCase="'events'">
             <ion-list>
-                <ion-item-sliding *ngFor="let item of newEvents">
+                <ion-item-sliding *ngFor="let item of newEvents" #slidingItem>
                     <ion-item>
                         <ion-thumbnail item-start>
                             <img [src]="item.image">
@@ -40,7 +40,7 @@
                         </button>
                     </ion-item>
                     <ion-item-options side="right">
-                        <button color="danger" ion-button (click)="deleteItem(item, segValue)">
+                        <button color="danger" ion-button (click)="deleteEvent(item, slidingItem)">
                             <ion-icon name="archive"></ion-icon>
                             Delete
                         </button>
@@ -52,7 +52,7 @@
 
       <div class="swtchTab" *ngSwitchCase="'users'">
             <ion-list>
-                <ion-item-sliding *ngFor="let item of allUsers">
+                <ion-item-sliding *ngFor="let item of allUsers" #slidingItem>
                     <ion-item>
                         <ion-avatar item-start>
                             <img *ngIf="item.image" [src]="item.image">
@@ -65,7 +65,7 @@
                         </button>
                     </ion-item>
                     <ion-item-options side="right" [hidden]="item.userType === 'admin'">
-                        <button color="danger" ion-button (click)="delete(item)">
+                        <button color="danger" ion-button (click)="deleteUser(item, slidingItem)">
                             <ion-icon name="archive"></ion-icon>
                             Delete
                         </button>
@@ -76,7 +76,7 @@
 
         <div class="swtchTab" *ngSwitchCase="'approved'">
             <ion-list>
-                <ion-item-sliding *ngFor="let item of allEvents">
+                <ion-item-sliding *ngFor="let item of allEvents" #slidingItem>
                     <ion-item>
                         <ion-thumbnail item-start>
                             <img *ngIf="item.image" [src]="item.image">
@@ -91,7 +91,7 @@
                         </button>
                     </ion-item>
                     <ion-item-options side="right" [hidden]="item.userType === 'admin'">
-                        <button color="danger" ion-button (click)="delete(item)">
+                        <button color="danger" ion-button (click)="deleteEvent(item, slidingItem)">
                         <ion-icon name="archive"></ion-icon>
                         Delete
                         </button>

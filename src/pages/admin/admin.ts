@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, LoadingController, ItemSliding } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { BaseService } from "../../providers/base-service";
 import { UserService } from "../../providers/user-service";
@@ -120,59 +120,61 @@ export class AdminPage {
             return true;
           });
       }
-    // deleteItem(item, value) {
-    //   switch (value) {
-    //     case "events":
-    //       this.getEventData();
-    //       break;
-    //     case "users":
-    //       this.getAllUser();
-    //       break;
-    //     case "approved":
-    //       this.approvedEventData();
-    //       break;
-    //   }
-    // }
 
-    // showAlert(title, message, id, segValue) {
-    //   let confirm = this.alertCtrl.create({
-    //     title: title,
-    //     message: message,
-    //     buttons: [
-    //       {
-    //         text: 'No',
-    //         handler: () => {
-    //           console.log('Disagree clicked');
-    //         }
-    //       },
-    //       {
-    //         text: 'Ok',
-    //         handler: () => {
-    //           console.log('Agree clicked');
-    //         }
-    //       }
-    //     ]
-    //   });
-    //   confirm.present();
-    // }
 
-    deleteEventData() {
-
+    deleteEvent(id, slidingItem: ItemSliding) {
+      slidingItem.close();
+      let confirm = this.alertCtrl.create({
+        title: "Are you sure?",
+        message: "Want to delete Event ?",
+        buttons: [
+          {
+            text: 'No',
+            handler: () => {
+              console.log('Disagree clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              this.deleteEventData(id);
+            }
+          }
+        ]
+      });
+      confirm.present();
     }
 
-    deleteUser() {
-
+    deleteUser(id, slidingItem: ItemSliding) {
+      slidingItem.close();
+      let confirm = this.alertCtrl.create({
+        title: "Are you sure?",
+        message: "Want to delete User? Deleting User will delete all their Events.",
+        buttons: [
+          {
+            text: 'No',
+            handler: () => {
+              console.log('Disagree clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              this.deleteUserData(id);
+            }
+          }
+        ]
+      });
+      confirm.present();
     }
 
-    deleteApprovedData(){
-
+    deleteEventData(id) {
+      console.log('deleteEventData', id);
     }
 
-    delete(item) {
-      console.log(item);
+    deleteUserData(id) {
+      console.log('deleteUser', id)
     }
-
-
 
 
 }

@@ -5,7 +5,6 @@ import { HomePage } from '../home/home'
 import { BaseService } from "../../providers/base-service";
 import { UserService } from "../../providers/user-service";
 import { DataService } from "../../providers/data-service";
-import { MapProvider } from "../../providers/map/map";
 import { Observable } from 'rxjs/Rx';
 
 
@@ -30,8 +29,7 @@ export class CreateEventPage {
     public dataService: DataService,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    private storage: Storage,
-    public mapService: MapProvider
+    private storage: Storage
 
   ) {
 
@@ -50,9 +48,9 @@ export class CreateEventPage {
 
   ionViewDidLoad() {
     this.initAutocomplete();
-    this.storage.get('userID').then((val) => {
+    this.storage.get('userAccess').then((val) => {
       console.log(val);
-      this.eventData.userId = val;
+      this.eventData.userId = val.userID;
     });
   }
 
@@ -68,8 +66,9 @@ export class CreateEventPage {
     // autocomplete.bindTo('bounds', this.map);
     return new Observable((sub: any) => {
       google.maps.event.addListener(autocomplete, 'place_changed', () => {
-        let autoCompleteValue: any = autocomplete
-        this.eventData.location = autoCompleteValue.gm_accessors_.place.fd.l;
+        let autoCompleteValue: any = autocomplete;
+        console.log(autocomplete);
+        this.eventData.location = autoCompleteValue.gm_accessors_.place.dd.l;
       });
     });
   }

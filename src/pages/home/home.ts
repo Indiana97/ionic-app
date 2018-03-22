@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { BaseService } from "../../providers/base-service";
 import { UserService } from "../../providers/user-service";
@@ -20,6 +20,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public events: Events,
     public baseService: BaseService,
     public userService: UserService,
     public dataService: DataService,
@@ -31,34 +32,44 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.storage.get('userID').then((val) => {
+
+
+
+    this.storage.get('userAccess').then((val) => {
       console.log(val);
-      this.userId = val;
-      this.userId ? this.getEventData() : console.log('ff');
+      this.userId = val.userID;
+      this.events.publish('logged:in', val.userType);
+      console.log('userType', val.userType);
+
+      // this.userId ? this.getEventData() : console.log('ff');
     });
   }
 
-  getEventData() {
-    let loading = this.loadingCtrl.create({
-      content: "Please wait...",
-      spinner: 'bubbles',
-      duration: 3000
-    });
-    loading.present();
-    let url = this.baseService.eventDataURL;
-    let data = { userId: this.userId };
-    this.dataService.getData(url, data)
-      .subscribe(
-        (data) => {
-          loading.dismiss();
-          console.log('eventData', data);
-          return true;
-        },
-        err => {
-          loading.dismiss();
-          console.log('errorData', err);
-          return true;
-        });
+  // getEventData() {
+  //   let loading = this.loadingCtrl.create({
+  //     content: "Please wait...",
+  //     spinner: 'bubbles',
+  //     duration: 3000
+  //   });
+  //   loading.present();
+  //   let url = this.baseService.eventDataURL;
+  //   let data = { userId: this.userId };
+  //   this.dataService.getData(url, data)
+  //     .subscribe(
+  //       (data) => {
+  //         loading.dismiss();
+  //         console.log('eventData', data);
+  //         return true;
+  //       },
+  //       err => {
+  //         loading.dismiss();
+  //         console.log('errorData', err);
+  //         return true;
+  //       });
+  // }
+
+  getItems(event){
+
   }
 
 

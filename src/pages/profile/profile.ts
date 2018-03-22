@@ -53,9 +53,9 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
-    this.storage.get('userID').then((val) => {
+    this.storage.get('userAccess').then((val) => {
       console.log(val);
-      this.userId = val;
+      this.userId = val.userID;
       this.userId?this.getProfileData(): console.log('ff');
     });
   }

@@ -10,6 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { HomePage } from '../pages/home/home';
+import { AdminPage } from '../pages/admin/admin';
 import { LoginPage } from '../pages/login/login';
 import { CreateEventPage } from '../pages/create-event/create-event';
 import { CategoryPage } from '../pages/category/category';
@@ -19,13 +20,14 @@ import { ProfilePage } from '../pages/profile/profile';
 import { BaseService } from '../providers/base-service';
 import { UserService } from '../providers/user-service';
 import { DataService } from "../providers/data-service";
-import { MapProvider } from "../providers/map/map";
+import { AdminService } from "../providers/admin-service";
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    AdminPage,
     LoginPage,
     CreateEventPage,
     CategoryPage,
@@ -41,6 +43,7 @@ import { MapProvider } from "../providers/map/map";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    AdminPage,
     HomePage,
     LoginPage,
     CreateEventPage,
@@ -54,7 +57,7 @@ import { MapProvider } from "../providers/map/map";
     BaseService,
     UserService,
     DataService,
-    MapProvider,
+    AdminService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

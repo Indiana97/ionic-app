@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
+
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -10,6 +11,7 @@ import { CreateEventPage } from '../pages/create-event/create-event';
 import { CategoryPage } from '../pages/category/category';
 import { NotificationPage } from '../pages/notification/notification';
 import { ProfilePage } from '../pages/profile/profile';
+import { AdminPage } from '../pages/admin/admin';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,18 +20,45 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any;
-  userID: string;
-  pages: Array<{title: string, icon: string, component: any}>;
+  pages: Array<{title: string, icon: string, component: any, style: boolean}>;
+  isAdmin: boolean = false;
+  isCreator: boolean = false;
+  isNormal: boolean = true;
+  isShowMenu: boolean = false;
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public storage: Storage
+    public storage: Storage,
+    public events: Events
   ) {
-    this.storage.get('userID').then((val) => {
-      this.userID = val;
-      if(this.userID){
+
+    events.subscribe('logged:in', (userType) => {
+      console.log('logged:in', userType);
+      if (userType == 'admin') {
+        this.isAdmin = true;
+        console.log(this.isAdmin);
+      } else if (userType == 'creator') {
+        this.isCreator = true;
+        console.log(this.isCreator);
+      } else {
+        console.log(userType);
+      }
+      this.pages = [
+        { title: 'Home', icon: 'ios-home-outline', component: HomePage, style: this.isNormal },
+        { title: 'Admin', icon: 'ios-contact-outline', component: AdminPage, style: this.isAdmin },
+        { title: 'Create Event', icon: 'ios-calendar-outline', component: CreateEventPage, style: this.isCreator },
+        { title: 'Categories', icon: 'ios-pricetags-outline', component: CategoryPage, style: this.isNormal },
+        { title: 'Notifications', icon: 'ios-notifications-outline', component: NotificationPage, style: this.isNormal },
+        { title: 'Profile', icon: 'ios-person-outline', component: ProfilePage, style: this.isNormal },
+        { title: 'Log Out', icon: 'ios-log-out-outline', component: LoginPage, style: this.isNormal },
+      ];
+    });
+
+    this.storage.get('userAccess').then((val) => {
+      console.log(val);
+      if(val){
         this.rootPage = HomePage;
       }else{
         this.rootPage = LoginPage;
@@ -37,33 +66,18 @@ export class MyApp {
     });
 
     this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', icon: 'ios-home-outline', component: HomePage },
-      { title: 'Create Event', icon: 'ios-calendar-outline', component: CreateEventPage },
-      { title: 'Categories', icon: 'ios-pricetags-outline', component: CategoryPage },
-      { title: 'Notifications', icon: 'ios-notifications-outline', component: NotificationPage },
-      { title: 'Profile', icon: 'ios-person-outline', component: ProfilePage },
-      { title: 'Log Out', icon: 'ios-log-out-outline', component: LoginPage },
-    ];
-
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     if(page.title == "Log Out"){
-      this.storage.remove('userID');
+      this.storage.remove('userAccess');
     }
     this.nav.setRoot(page.component);
   }

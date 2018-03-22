@@ -42,7 +42,6 @@ export class LoginPage {
 
   doLogin() {
 
-    this.navCtrl.setRoot(HomePage);
     let toast1 = this.toastCtrl.create({
       message: 'Please Enter Email and Password',
       duration: 2000,
@@ -56,25 +55,40 @@ export class LoginPage {
       position: 'bottom'
     });
 
-    // if(this.userData.userEmail && this.userData.password){
-    //   this.isLoading.present();
-    //   this.userService.login(this.userData)
-    //     .subscribe(
-    //       (data) => {
-    //         this.isLoading.dismiss();
-    //         (this.isRemember) ? this.storage.set('userData', this.userData): this.storage.clear();
-    //         this.storage.set('userID', data);
-    //         this.navCtrl.setRoot(HomePage);
-    //         return true;
-    //       },
-    //       err => {
-    //         console.log('errorData', err);
-    //         toast2.present();
-    //         return true;
-    //       });
-    //   }else{
-    //     toast1.present();
-    //   }
+    if(this.userData.userEmail && this.userData.password){
+      this.isLoading.present();
+      this.userService.login(this.userData)
+        .subscribe(
+          (data) => {
+            this.isLoading.dismiss();
+            (this.isRemember) ? this.storage.set('userData', this.userData): this.storage.clear();
+            this.userType(data);
+            return true;
+          },
+          err => {
+            console.log('errorData', err);
+            toast2.present();
+            return true;
+          });
+      }else{
+        toast1.present();
+      }
+  }
+
+  userType(item){
+    this.userService.userType({ userId: item })
+      .subscribe(
+        (data) => {
+          console.log('userType', data);
+          let userAccess: any = { userID: item, userType: data}
+          this.storage.set('userAccess', userAccess);
+          this.navCtrl.setRoot(HomePage);
+          return true;
+        },
+        err => {
+          console.log('errorData', err);
+          return true;
+        });
   }
 
 

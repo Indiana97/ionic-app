@@ -13,7 +13,6 @@ export class DataService {
   constructor(public http: Http) { }
 
   getData(url, data) {
-    console.log(url, data);
     return this.http.post(url, data, options)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error || 'Server error'));

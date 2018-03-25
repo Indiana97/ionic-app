@@ -60,6 +60,10 @@ export class ProfilePage {
     });
   }
 
+  selectedItems() {
+    console.log(this.profileData.category);
+  }
+
   getProfileData() {
     this.isLoading.present();
     this.url = this.baseService.profileURL;

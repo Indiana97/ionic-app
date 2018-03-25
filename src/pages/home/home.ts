@@ -33,67 +33,158 @@ export class HomePage {
 
   ionViewDidLoad() {
 
-
-
     this.storage.get('userAccess').then((val) => {
-      console.log(val);
       this.userId = val.userID;
+      let userType = val.userType;
       this.events.publish('logged:in', val.userType);
-      console.log('userType', val.userType);
-
-      // this.userId ? this.getEventData() : console.log('ff');
+      userType == 'admin'? this.getEventData(this.userId): console.log(this.userId);
     });
   }
 
-  // getEventData() {
-  //   let loading = this.loadingCtrl.create({
-  //     content: "Please wait...",
-  //     spinner: 'bubbles',
-  //     duration: 3000
-  //   });
-  //   loading.present();
-  //   let url = this.baseService.eventDataURL;
-  //   let data = { userId: this.userId };
-  //   this.dataService.getData(url, data)
-  //     .subscribe(
-  //       (data) => {
-  //         loading.dismiss();
-  //         console.log('eventData', data);
-  //         return true;
-  //       },
-  //       err => {
-  //         loading.dismiss();
-  //         console.log('errorData', err);
-  //         return true;
-  //       });
-  // }
+  getEventData(id) {
+    let loading = this.loadingCtrl.create({
+      content: "Please wait...",
+      spinner: 'bubbles',
+      duration: 3000
+    });
+    loading.present();
+    let data = {userId: id};
+    this.dataService.getData(this.baseService.eventDataURL, data)
+      .subscribe(
+        (data) => {
+          loading.dismiss();
+          this.eventList = data;
+          console.log('eventData', data);
 
-  getItems(event){
+          this.eventList.sort((a: any, b: any) => {
+            if (a.createdDate > b.createdDate) {
+              return -1;
+            } else if (a.createdDate < b.createdDate) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
 
+          this.eventList.forEach(item => {
+            if (item.userId === this.userId) {
+              item.editable = true;
+            }
+            if (item.likes) {
+              item.totalLikes = item.likes.length;
+              item.likes.forEach(like => {
+                if (like.userId === this.userId) {
+                  item.alreadyLiked = true;
+                }
+              });
+            }
+            if (item.rsvp) {
+              item.totalRsvp = item.rsvp.length;
+              item.rsvp.forEach(rsvp => {
+                if (rsvp.userId === this.userId) {
+                  item.alreadyRsvp = true;
+                }
+              });
+            }
+          });
+
+          return true;
+        },
+        err => {
+          loading.dismiss();
+          console.log('errorData', err);
+          return true;
+        });
   }
 
+  likeEvent(eventId, userId, val) {
+    let data;
+    let url;
+    if(val == 'like'){
+      data = {
+        'likedUserId': this.userId,
+        'eventId': eventId,
+        'userId': userId
+      }
+      url = this.baseService.likeEventURL;
+    }else{
+      data = {
+        'unlikedUserId': this.userId,
+        'eventId': eventId
+      }
+      url = this.baseService.unlikeEventURL;
+    }
 
+    this.dataService.updateData(url, data)
+      .subscribe(
+        (data) => {
+          this.getEventData(this.userId);
+          return true;
+        },
+        err => {
+          console.log('errorData', err);
+          return true;
+        });
+  }
 
-  // initializeItems() {
-  //   this.items = [
-  //     { id: 0, title: 'Event1' },
-  //     { id: 1, title: 'Event2' },
-  //     { id: 2, title: 'Event3' }
-  //   ];
-  // }
+  rsvpCheckEvent(eventId, userId, val) {
+    let data;
+    let url;
+    if (val == 'check') {
+      data = {
+        'rsvpUserId': this.userId,
+        'eventId': eventId,
+        'userId': userId
+      }
+      url = this.baseService.rsvpCheckURL;
+    } else {
+      data = {
+        'uncheckedRsvpUserId': this.userId,
+        'eventId': eventId
+      }
+      url = this.baseService.rsvpUncheckURL;
+    }
 
-  // getItems(ev: any) {
-  //   // Reset items back to all of the items
+    this.dataService.updateData(url, data)
+      .subscribe(
+        (data) => {
+          this.getEventData(this.userId);
+          return true;
+        },
+        err => {
+          console.log('errorData', err);
+          return true;
+        });
+  }
+
+  eventDetails(eventId) {
+    console.log(eventId);
+  }
+
+  initializeItems() {
+    // this.items = [
+    //   { id: 0, title: 'Event1' },
+    //   { id: 1, title: 'Event2' },
+    //   { id: 2, title: 'Event3' }
+    // ];
+    this.eventList;
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
   //   this.initializeItems();
 
   //   // set val to the value of the searchbar
   //   let val = ev.target.value;
+  //   console.log(val);
 
   //   // if the value is an empty string don't filter the items
   //   if (val && val.trim() != '') {
-  //     this.items = this.items.filter((item) => {
-  //       return (item.title.toLowerCase().indexOf(val.toLowerCase()) > -1);
+  //     this.eventList = this.eventList.filter((item) => {
+  //       console.log(item);
+  //       return (item.eventName.toLowerCase().indexOf(val.toLowerCase()) > -1);
   //     })
   //   }
-  // }
+    console.log(ev);
+  }
 }

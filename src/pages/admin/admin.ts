@@ -13,12 +13,12 @@ import { Observable } from 'rxjs/Rx';
   templateUrl: 'admin.html'
 })
 export class AdminPage {
-  userId: string;
-  newEvents: any = [];
-  allUsers: any = [];
-  allEvents: any = [];
+    userId: string;
+    newEvents: any = [];
+    allUsers: any = [];
+    allEvents: any = [];
 
-  segValue: string;
+    segValue: string;
 
   constructor(
     public navCtrl: NavController,
@@ -33,148 +33,167 @@ export class AdminPage {
     private storage: Storage
   ) {
 
-    this.segValue = 'events';
+        this.segValue = 'events';
 
-  }
-
-  ionViewDidLoad() {
-    this.storage.get('userAccess').then((val) => {
-      console.log(val);
-      this.userId = val.userID;
-      this.getEventData();
-    });
-
-  }
-
-  segmentChanged(event) {
-    console.log(this.segValue);
-    switch (this.segValue) {
-      case "events":
-        this.getEventData();
-        break;
-      case "users":
-        this.getAllUser();
-        break;
-      case "approved":
-        this.approvedEventData();
-        break;
     }
-  }
 
-  getEventData() {
-    this.adminService.getData(this.baseService.adminNewEventURL)
-      .subscribe(
-        (data) => {
-          this.newEvents = data;
-          console.log('newEvent', this.newEvents);
-          return true;
-        },
-        err => {
-          console.log('errorNewEvent', err);
-          return true;
+    ionViewDidLoad() {
+        this.storage.get('userAccess').then((val) => {
+            this.userId = val.userID;
+            this.getEventData();
         });
+
+    }
+
+    segmentChanged(event) {
+        switch (this.segValue) {
+            case "events":
+                this.getEventData();
+                break;
+            case "users":
+                this.getAllUser();
+                break;
+            case "approved":
+                this.approvedEventData();
+                break;
+        }
+    }
+
+    getEventData() {
+        this.adminService.getData(this.baseService.adminNewEventURL)
+            .subscribe(
+                (data) => {
+                    this.newEvents = data;
+                    return true;
+                },
+                err => {
+                    console.log('errorNewEvent', err);
+                    return true;
+                });
     }
 
     getAllUser() {
-      this.adminService.getData(this.baseService.adminAllUsersURL)
-        .subscribe(
-          (data) => {
-            this.allUsers = data;
-            console.log('allUsersData', this.allUsers);
-            return true;
-          },
-          err => {
-            console.log('errorData', err);
-            return true;
-          });
+        this.adminService.getData(this.baseService.adminAllUsersURL)
+            .subscribe(
+            (data) => {
+                this.allUsers = data;
+                return true;
+            },
+            err => {
+                console.log('errorData', err);
+                return true;
+            });
     }
 
     approvedEventData() {
-      let that = this;
-      const data = { 'userId': this.userId };
-      this.dataService.getData(this.baseService.eventDataURL, data)
-        .subscribe(
-          (data) => {
-            that.allEvents = data;
-            console.log('approData', this.allEvents);
-            return true;
-          },
-          err => {
-            console.log('errorData', err);
-            return true;
-          });
+        let that = this;
+        const data = { 'userId': this.userId };
+        this.dataService.getData(this.baseService.eventDataURL, data)
+            .subscribe(
+            (data) => {
+                that.allEvents = data;
+                return true;
+            },
+            err => {
+                console.log('errorData', err);
+                return true;
+            });
     }
 
 
     doApproveEvent(eventId) {
-      const data = { 'eventId': eventId}
-      this.dataService.updateData(this.baseService.approveEventURL, data)
-        .subscribe(
-          (data) => {
-            this.getEventData();
-            console.log('getEventData', data);
-            return true;
-          },
-          err => {
-            console.log('errorData', err);
-            return true;
-          });
-      }
+        const data = { 'eventId': eventId}
+        this.dataService.updateData(this.baseService.approveEventURL, data)
+            .subscribe(
+            (data) => {
+                this.getEventData();
+                console.log('getEventData', data);
+                return true;
+            },
+            err => {
+                console.log('errorData', err);
+                return true;
+            });
+        }
 
 
     deleteEvent(id, slidingItem: ItemSliding) {
-      slidingItem.close();
-      let confirm = this.alertCtrl.create({
-        title: "Are you sure?",
-        message: "Want to delete Event ?",
-        buttons: [
-          {
-            text: 'No',
-            handler: () => {
-              console.log('Disagree clicked');
+        slidingItem.close();
+        let confirm = this.alertCtrl.create({
+            title: "Are you sure?",
+            message: "Want to delete Event ?",
+            buttons: [
+            {
+                text: 'No',
+                handler: () => {
+                console.log('Disagree clicked');
+                }
+            },
+            {
+                text: 'Yes',
+                handler: () => {
+                this.removeEventData(id);
+                }
             }
-          },
-          {
-            text: 'Yes',
-            handler: () => {
-              this.deleteEventData(id);
-            }
-          }
-        ]
-      });
-      confirm.present();
+            ]
+        });
+        confirm.present();
     }
 
     deleteUser(id, slidingItem: ItemSliding) {
-      slidingItem.close();
-      let confirm = this.alertCtrl.create({
-        title: "Are you sure?",
-        message: "Want to delete User? Deleting User will delete all their Events.",
-        buttons: [
-          {
-            text: 'No',
-            handler: () => {
-              console.log('Disagree clicked');
+        slidingItem.close();
+        let confirm = this.alertCtrl.create({
+            title: "Are you sure?",
+            message: "Want to delete User? Deleting User will delete all their Events.",
+            buttons: [
+            {
+                text: 'No',
+                handler: () => {
+                console.log('Disagree clicked');
+                }
+            },
+            {
+                text: 'Yes',
+                handler: () => {
+                this.deleteUserData(id);
+                }
             }
-          },
-          {
-            text: 'Yes',
-            handler: () => {
-              this.deleteUserData(id);
-            }
-          }
-        ]
-      });
-      confirm.present();
+            ]
+        });
+        confirm.present();
     }
 
-    deleteEventData(id) {
-      console.log('deleteEventData', id);
+    removeEventData(id) {
+        let data = { 'eventId': id };
+        this.dataService.updateData(this.baseService.removeEventURL, data)
+            .subscribe(
+                (data) => {
+                    this.getEventData();
+                    this.approvedEventData();
+                    return true;
+                },
+                err => {
+                    console.log('errorData', err);
+                    return true;
+                });
+
+
     }
 
     deleteUserData(id) {
-      console.log('deleteUser', id)
-    }
+        let data = { 'userId': id };
+        this.adminService.updateData(this.baseService.adminDelUsersURL, data)
+            .subscribe(
+            (data) => {
+                this.getAllUser();
+                console.log('getAllUser', data);
+                return true;
+            },
+            err => {
+                console.log('errorData', err);
+                return true;
+            });
+      }
 
 
 }

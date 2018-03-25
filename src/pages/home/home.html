@@ -1,26 +1,60 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-list>
-    <!-- <ion-item *ngFor="let item of items">
-      <ion-avatar item-start>
-        <img src="assets/icon/event.jpg">
-      </ion-avatar>
-      <h2>{{item.title}}</h2>
-      <p>Ugh. As if.</p>
-      <button ion-button clear color="secondary" item-end>
-        <ion-icon name="ios-arrow-forward-outline"></ion-icon>
-      </button>
-    </ion-item> -->
-  </ion-list>
+    <ion-searchbar style="position: absolute" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list style="margin-top: 55px">
+
+        <ion-card *ngFor="let item of eventList">
+            <ion-item>
+                <ion-avatar item-start>
+                  <img src="assets/imgs/profile-empty.png">
+                </ion-avatar>
+                <h2>{{item.eventName}}</h2>
+                <p>{{item.eventDate | date:'dd-MM-yyyy HH:mm:ss'}}</p>
+                <button ion-button clear small item-end (click)="eventDetails(item.eventId)">
+                  Details
+                </button>
+            </ion-item>
+            <img [src]="item.image">
+            <ion-card-content>
+                <p>{{item.description}}</p>
+            </ion-card-content>
+            <p style="padding: 0 16px;"><ion-icon name="ios-pin" style="margin-right: 10px;"></ion-icon>{{item.location}}</p>
+            <p style="padding: 0 16px;">
+              <ion-icon name="ios-pricetag" style="margin-right: 5px;"></ion-icon>
+              <span *ngFor="let p of item.categoryId" style="padding-right: 5px;">{{p.itemName}}</span>
+            </p>
+            <ion-row>
+                <ion-col>
+                    <button ion-button icon-left clear small *ngIf="!item.alreadyLiked" (click)="likeEvent(item.eventId, item.userId, 'like')">
+                        <ion-icon name="ios-thumbs-up-outline"></ion-icon>
+                        <div *ngIf="!item.totalLikes">0 Likes</div>
+                    </button>
+                    <button ion-button icon-left clear small *ngIf="item.alreadyLiked" (click)="likeEvent(item.eventId, item.userId, 'unlike')">
+                        <ion-icon name="ios-thumbs-up"></ion-icon>
+                        <div *ngIf="item.likes.length > 0">{{item.likes.length}} Likes</div>
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <button ion-button icon-left clear small *ngIf="item.totalRsvp === 0" (click)="rsvpCheckEvent(item.eventId, item.userId, 'check')">
+                        <ion-icon name="ios-remove-circle-outline"></ion-icon>
+                        <div>0 Rsvp</div>
+                    </button>
+                    <button ion-button icon-left clear small *ngIf="item.totalRsvp > 0" (click)="rsvpCheckEvent(item.eventId, item.userId, 'uncheck')">
+                        <ion-icon name="ios-checkmark-circle"></ion-icon>
+                        <div>{{item.totalRsvp}} Rsvp</div>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </ion-list>
 
 </ion-content>

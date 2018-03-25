@@ -24,8 +24,8 @@ export class RegisterPage {
     public loadingCtrl: LoadingController,
   ) {
     this.userTypeList = [
-      { value: 0, name: 'Normal'},
-      { value: 1, name: 'Creator' }];
+      { id: 0, name: 'Normal', value: 'normal' },
+      { id: 1, name: 'Creator', value: 'creator' }];
     this.resData = {}
     this.comfirmPass = '';
     this.loading = this.loadingCtrl.create({

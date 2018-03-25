@@ -19,7 +19,7 @@
     <ion-item>
       <ion-label>User Type</ion-label>
       <ion-select [(ngModel)]="resData.userType">
-        <ion-option *ngFor="let item of userTypeList" [value]="item.name">{{item.name}}</ion-option>
+        <ion-option *ngFor="let item of userTypeList" [value]="item.value">{{item.name}}</ion-option>
       </ion-select>
     </ion-item>
 

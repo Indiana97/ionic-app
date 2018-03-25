@@ -40,7 +40,7 @@
                         </button>
                     </ion-item>
                     <ion-item-options side="right">
-                        <button color="danger" ion-button (click)="deleteEvent(item, slidingItem)">
+                        <button color="danger" ion-button (click)="deleteEvent(item.eventId, slidingItem)">
                             <ion-icon name="archive"></ion-icon>
                             Delete
                         </button>
@@ -65,7 +65,7 @@
                         </button>
                     </ion-item>
                     <ion-item-options side="right" [hidden]="item.userType === 'admin'">
-                        <button color="danger" ion-button (click)="deleteUser(item, slidingItem)">
+                        <button color="danger" ion-button (click)="deleteUser(item.userId, slidingItem)">
                             <ion-icon name="archive"></ion-icon>
                             Delete
                         </button>
@@ -83,7 +83,6 @@
                             <img *ngIf="!item.image" src="assets/imgs/profile-empty.png">
                         </ion-thumbnail>
                         <h2>{{item.eventName}} ({{item.eventId}})</h2>
-
                         <p>{{item.eventDate}}</p>
                         <p>{{item.location}}</p>
                         <button ion-button outline item-end >
@@ -91,7 +90,7 @@
                         </button>
                     </ion-item>
                     <ion-item-options side="right" [hidden]="item.userType === 'admin'">
-                        <button color="danger" ion-button (click)="deleteEvent(item, slidingItem)">
+                        <button color="danger" ion-button (click)="deleteEvent(item.eventId,  slidingItem)">
                         <ion-icon name="archive"></ion-icon>
                         Delete
                         </button>

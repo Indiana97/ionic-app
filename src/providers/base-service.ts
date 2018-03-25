@@ -20,6 +20,11 @@ export class BaseService {
   public adminDelUsersURL = this.baseURL + "admin/delete/user";
   public adminDelEventURL = this.baseURL + "admin/delete/event";
   public approveEventURL = this.baseURL + "admin/approve/event";
+  public removeEventURL = this.baseURL + "event/remove";
+  public likeEventURL = this.baseURL + "event/like";
+  public unlikeEventURL = this.baseURL + "event/unlike";
+  public rsvpCheckURL = this.baseURL + "event/rsvp";
+  public rsvpUncheckURL = this.baseURL + "event/uncheck/rsvp";
 
   constructor(public http: Http) {
     console.log('Hello BaseService Provider');

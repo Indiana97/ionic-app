@@ -29,7 +29,7 @@
     <ion-item>
       <ion-label stacked>Category</ion-label>
       <ion-select [(ngModel)]="eventData.categoryId" multiple="true" cancelText="Nah" okText="Okay!">
-        <ion-option *ngFor="let item of categoryList" [value]="item.id">{{item.itemName}}</ion-option>
+        <ion-option *ngFor="let item of categoryList" [value]="item">{{item.itemName}}</ion-option>
 
       </ion-select>
     </ion-item>

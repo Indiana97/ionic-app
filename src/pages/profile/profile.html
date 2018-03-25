@@ -45,8 +45,8 @@
 
     <ion-item >
       <ion-label stacked>Category:</ion-label>
-      <ion-select multiple="true" cancelText="Cancel" okText="Okay!" [(ngModel)]="profileData.category">
-        <ion-option *ngFor="let item of categoryList" [value]="item">{{item.itemName}}</ion-option>
+      <ion-select multiple="true" cancelText="Cancel" okText="Okay!" [(ngModel)]="profileData.category" name="retailerItem" (ionChange)="selectedItems()">
+        <ion-option *ngFor="let item of categoryList" [value]="item.id">{{item.itemName}}</ion-option>
       </ion-select>
     </ion-item>
 

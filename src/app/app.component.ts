@@ -35,13 +35,12 @@ export class MyApp {
   ) {
 
     events.subscribe('logged:in', (userType) => {
-      console.log('logged:in', userType);
-      if (userType == 'admin') {
+      if(userType == 'admin') {
         this.isAdmin = true;
-        console.log(this.isAdmin);
+        this.isCreator = false;
       } else if (userType == 'creator') {
         this.isCreator = true;
-        console.log(this.isCreator);
+        this.isAdmin = false;
       } else {
         console.log(userType);
       }

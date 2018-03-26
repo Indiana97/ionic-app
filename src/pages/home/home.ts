@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { DetailsEventPage } from '../details-event/details-event';
 import { BaseService } from "../../providers/base-service";
 import { UserService } from "../../providers/user-service";
 import { DataService } from "../../providers/data-service";
@@ -159,6 +160,7 @@ export class HomePage {
 
   eventDetails(eventId) {
     console.log(eventId);
+    this.navCtrl.push(DetailsEventPage, { eventId: eventId });
   }
 
   initializeItems() {

@@ -13,6 +13,7 @@ import { HomePage } from '../pages/home/home';
 import { AdminPage } from '../pages/admin/admin';
 import { LoginPage } from '../pages/login/login';
 import { CreateEventPage } from '../pages/create-event/create-event';
+import { DetailsEventPage } from '../pages/details-event/details-event';
 import { CategoryPage } from '../pages/category/category';
 import { NotificationPage } from '../pages/notification/notification';
 import { ProfilePage } from '../pages/profile/profile';
@@ -30,6 +31,7 @@ import { AdminService } from "../providers/admin-service";
     AdminPage,
     LoginPage,
     CreateEventPage,
+    DetailsEventPage,
     CategoryPage,
     NotificationPage,
     ProfilePage
@@ -47,6 +49,7 @@ import { AdminService } from "../providers/admin-service";
     HomePage,
     LoginPage,
     CreateEventPage,
+    DetailsEventPage,
     CategoryPage,
     NotificationPage,
     ProfilePage
